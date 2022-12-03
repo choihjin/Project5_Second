@@ -9,6 +9,7 @@
          isELIgnored="false"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -37,7 +38,7 @@
   <script>
     function delete_ok(id){
       var a = confirm("정말로 삭제하겠습니까?");
-      if(a) location.href='deletepost.jsp?id=' + id;
+      if(a) location.href='deleteok/' + id;
     }
   </script>
 </head>
@@ -56,16 +57,16 @@
     </tr>
 
     <c:forEach items="${list}" var="u">
-    <tr>
-      <td>${u.seq}</td>
-      <td>${u.category}</td>
-      <td>${u.title}</td>
-      <td>${u.writer}</td>
-      <td>${u.content}</td>
-      <td>${u.regdate}</td>
-      <td><a href="editform/${u.seq}">Edit</a></td>
-      <td><a href="javascript:delete_ok('${u.seq}')">Delete</a></td>
-    </tr>
+      <tr>
+        <td>${u.seq}</td>
+        <td>${u.category}</td>
+        <td>${u.title}</td>
+        <td>${u.writer}</td>
+        <td>${u.content}</td>
+        <td>${u.regdate}</td>
+        <td><a href="editform/${u.seq}">Edit</a></td>
+        <td><a href="javascript:delete_ok('${u.seq}')">Delete</a></td>
+      </tr>
     </c:forEach>
   </table>
   <br/><button type="button" onclick="location.href='add'">새글쓰기</button>

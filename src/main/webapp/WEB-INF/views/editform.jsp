@@ -1,32 +1,46 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@page import="com.example.dao.BoardDAO, com.example.bean.BoardVO"%>
+<%@page import="com.example.board.BoardDAO, com.example.board.BoardVO"%>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Edit Form</title>
+	<title>Edit Page</title>
+	<style>
+		#edit {
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		border-collapse: collapse;
+		width: 25%;
+		}
+		#edit tr:nth-child(even){background-color: #f2f2f2;}
+		#edit tr:hover {background-color: #ddd;}
+		#edit td {
+		padding-top: 12px;
+		padding-bottom: 12px;
+		}
+		.input {
+		width: 300px;
+		text-align: center;
+		background-color: #006bb3;
+		color: white;
+		}
+	</style>
 </head>
 <body>
 
-<%
-	BoardDAO boardDAO = new BoardDAO();
-	String id=request.getParameter("id");	
-	BoardVO u=boardDAO.getBoard(Integer.parseInt(id));
-%>
-
-<h1>Edit Form</h1>
-<form action="editpost.jsp" method="post">
-<input type="hidden" name="seq" value="<%=u.getSeq() %>"/>
-<table>
-<tr><td>Category:</td><td><input type="text" name="category" value="<%= u.getCategory()%>"/></td></tr>
-<tr><td>Title:</td><td><input type="text" name="title" value="<%= u.getTitle()%>"/></td></tr>
-<tr><td>Writer:</td><td><input type="text" name="writer" value="<%= u.getWriter()%>" /></td></tr>
-<tr><td>Content:</td><td><textarea cols="50" rows="5" name="content"><%= u.getContent()%></textarea></td></tr>
-<tr><td colspan="2"><input type="submit" value="Edit Post"/>
-<input type="button" value="Cancel" onclick="history.back()"/></td></tr>
-</table>
-</form>
+<h1>Edit Page</h1>
+<form:form modelAttribute="u" method="POST" action="../editok">
+	<form:hidden path="seq"/>
+	<table id="edit">
+		<tr><td class="input">Category:</td><td><form:input path="category"/></td></tr>
+		<tr><td class="input">Title:</td><td><form:input path="title"/></td></tr>
+		<tr><td class="input">Writer:</td><td><form:input path="writer"/></td></tr>
+		<tr><td class="input">Content:</td><td><form:textarea cols="50" rows="5" path="content"/></td></tr>
+	</table>
+	<button type="submit">수정하기</button>
+	<button type="button" onclick="history.back()"/>취소하기</button>
+</form:form>
 
 </body>
 </html>
